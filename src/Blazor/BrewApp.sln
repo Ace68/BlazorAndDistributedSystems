@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "90 Presentation", "90 Presentation", "{B4F04681-8F14-4902-8E7D-3B21E87AC7FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewApp", "BrewApp\BrewApp.csproj", "{F16E73CF-9E93-48B9-9853-DD75CAD7FD9A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "50 Modules", "50 Modules", "{F3EE130A-6F50-486C-8158-3A3BE5EFC654}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orders", "Orders", "{7DA608C1-8EDF-4A1D-B9FD-27FB3777F898}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewApp.Modules.Orders", "BrewApp.Modules.Orders\BrewApp.Modules.Orders.csproj", "{949BFBB9-E61A-471F-812E-2C284803F5CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F16E73CF-9E93-48B9-9853-DD75CAD7FD9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F16E73CF-9E93-48B9-9853-DD75CAD7FD9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F16E73CF-9E93-48B9-9853-DD75CAD7FD9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F16E73CF-9E93-48B9-9853-DD75CAD7FD9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{949BFBB9-E61A-471F-812E-2C284803F5CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{949BFBB9-E61A-471F-812E-2C284803F5CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{949BFBB9-E61A-471F-812E-2C284803F5CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{949BFBB9-E61A-471F-812E-2C284803F5CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F16E73CF-9E93-48B9-9853-DD75CAD7FD9A} = {B4F04681-8F14-4902-8E7D-3B21E87AC7FC}
+		{7DA608C1-8EDF-4A1D-B9FD-27FB3777F898} = {F3EE130A-6F50-486C-8158-3A3BE5EFC654}
+		{949BFBB9-E61A-471F-812E-2C284803F5CC} = {7DA608C1-8EDF-4A1D-B9FD-27FB3777F898}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {72D330E6-10EE-4FBB-8608-E44761567F98}
+	EndGlobalSection
+EndGlobal
