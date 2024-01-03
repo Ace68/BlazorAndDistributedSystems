@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 
-namespace BrewUpSagas.Modules
+namespace BrewUpWarehouses.Modules
 {
     public sealed class SwaggerModule : IModule
     {
@@ -10,16 +10,14 @@ namespace BrewUpSagas.Modules
         public IServiceCollection RegisterModule(WebApplicationBuilder builder)
         {
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen(setup => setup.SwaggerDoc("v1", new OpenApiInfo
+            builder.Services.AddSwaggerGen(setup => setup.SwaggerDoc("v1", new OpenApiInfo()
             {
-                Description = "BrewUp Sagas",
-                Title = "BrewUpSagas",
+                Description = "BrewUp Warehouses",
+                Title = "BrewUp Warehouses",
                 Version = "v1",
                 Contact = new OpenApiContact
                 {
-                    Name = "Master Brewer",
-                    Email = "alberto.acerbis@gmail.com",
-                    Url = new Uri("https://github.com/brewup")
+                    Name = "BrewUpWarehouses"
                 }
             }));
 

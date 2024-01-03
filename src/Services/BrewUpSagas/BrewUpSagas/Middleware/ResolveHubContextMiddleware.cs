@@ -28,7 +28,7 @@ public class ResolveHubContextMiddleware
     public async Task InvokeAsync(HttpContext context,
         IHubService hubService)
     {
-        var hubContext = context.RequestServices.GetService<IHubContext<XmasHub, IHubsHelper>>();
+        var hubContext = context.RequestServices.GetService<IHubContext<BrewUpHub, IHubsHelper>>();
         hubService.RegisterHubContext(hubContext!);
 
         await _next(context);

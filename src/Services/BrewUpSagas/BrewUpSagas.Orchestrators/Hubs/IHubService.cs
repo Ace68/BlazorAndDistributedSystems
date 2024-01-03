@@ -4,7 +4,7 @@ namespace BrewUpSagas.Orchestrators.Hubs;
 
 public interface IHubService
 {
-    void RegisterHubContext(IHubContext<XmasHub, IHubsHelper> hubContext);
+    void RegisterHubContext(IHubContext<BrewUpHub, IHubsHelper> hubContext);
 
     Task TellEveryoneThatClientIsConnected(string user, string message);
     Task TellEveryoneThatClientIsDisconnected(string user, string message);

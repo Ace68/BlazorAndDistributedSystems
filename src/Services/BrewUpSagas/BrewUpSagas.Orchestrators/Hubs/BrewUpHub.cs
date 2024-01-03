@@ -2,7 +2,7 @@
 
 namespace BrewUpSagas.Orchestrators.Hubs;
 
-public class XmasHub : Hub<IHubsHelper>
+public class BrewUpHub : Hub<IHubsHelper>
 {
     public override async Task OnConnectedAsync()
     {

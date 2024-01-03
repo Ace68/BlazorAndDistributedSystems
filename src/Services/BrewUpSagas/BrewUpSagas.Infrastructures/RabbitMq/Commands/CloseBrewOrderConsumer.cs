@@ -5,9 +5,9 @@ using Muflone.Transport.RabbitMQ.Consumers;
 
 namespace BrewUpSagas.Infrastructures.RabbitMq.Commands;
 
-public sealed class CloseXmasLetterConsumer : CommandSenderBase<BrewOrderLetter>
+public sealed class CloseBrewOrderConsumer : CommandSenderBase<CloseBrewOrder>
 {
-    public CloseXmasLetterConsumer(IMufloneConnectionFactory connectionFactory, ILoggerFactory loggerFactory)
+    public CloseBrewOrderConsumer(IMufloneConnectionFactory connectionFactory, ILoggerFactory loggerFactory)
         : base(connectionFactory, loggerFactory)
     {
     }

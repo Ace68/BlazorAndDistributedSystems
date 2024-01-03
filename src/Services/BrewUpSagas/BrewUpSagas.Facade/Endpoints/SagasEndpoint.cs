@@ -15,7 +15,7 @@ public static class SagasEndpoint
         var group = endpoints.MapGroup("/v1/sagas/")
             .WithTags("Sagas");
 
-        group.MapPost("breworders", HandleSendXmasLetters)
+        group.MapPost("breworders", HandleSendBrewOrder)
             .WithName("SendBrewUpOrders");
 
         group.MapPost("broadcast", HandleSignalR)
@@ -26,7 +26,7 @@ public static class SagasEndpoint
 
     public static IEndpointRouteBuilder MapSignalR(this IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapHub<XmasHub>("/xmas", options =>
+        endpoints.MapHub<BrewUpHub>("/brewup", options =>
         {
             options.AllowStatefulReconnects = true;
         });
@@ -34,7 +34,7 @@ public static class SagasEndpoint
         return endpoints;
     }
 
-    public static async Task<IResult> HandleSendXmasLetters(
+    public static async Task<IResult> HandleSendBrewOrder(
         ISagasFacade sagasFacade,
         IValidator<BrewOrderContract> validator,
         ValidationHandler validationHandler,

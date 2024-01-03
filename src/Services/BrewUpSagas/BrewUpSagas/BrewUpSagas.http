@@ -1,6 +1,6 @@
-@XmasSagas_HostAddress = http://localhost:5028
+@BrewUpSagas_HostAddress = http://localhost:5028
 
-GET {{XmasSagas_HostAddress}}/weatherforecast/
+GET {{BrewUpSagas_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

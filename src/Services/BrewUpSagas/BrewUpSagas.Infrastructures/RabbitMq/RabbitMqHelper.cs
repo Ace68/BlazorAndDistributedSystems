@@ -40,7 +40,7 @@ public static class RabbitMqHelper
             new BrewOrderReadyToSendConsumer(serviceProvider, mufloneConnectionFactory, loggerFactory),
             new SendBrewOrderConsumer(mufloneConnectionFactory, loggerFactory),
             new BrewOrderApprovedConsumer(serviceProvider, mufloneConnectionFactory, loggerFactory),
-            new CloseXmasLetterConsumer(mufloneConnectionFactory, loggerFactory),
+            new CloseBrewOrderConsumer(mufloneConnectionFactory, loggerFactory),
             new BrewOrderProcessedConsumer(serviceProvider, mufloneConnectionFactory, loggerFactory),
             new BrewOrderSagaCompletedConsumer(serviceProvider, mufloneConnectionFactory, loggerFactory),
         });

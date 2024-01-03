@@ -4,9 +4,9 @@ namespace BrewUpSagas.Orchestrators.Hubs;
 
 public sealed class HubService : IHubService
 {
-    public static IHubContext<XmasHub, IHubsHelper>? HubContext;
+    public static IHubContext<BrewUpHub, IHubsHelper>? HubContext;
 
-    public void RegisterHubContext(IHubContext<XmasHub, IHubsHelper> hubContext)
+    public void RegisterHubContext(IHubContext<BrewUpHub, IHubsHelper> hubContext)
     {
         HubContext = hubContext;
     }

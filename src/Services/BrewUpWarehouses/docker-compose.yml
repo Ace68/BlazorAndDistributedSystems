@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+
+  xmas-warehouses:
+     container_name: "xmaswarehouses"
+     image: xmaswarehouses:latest
+     ports:
+         - 5200:8080

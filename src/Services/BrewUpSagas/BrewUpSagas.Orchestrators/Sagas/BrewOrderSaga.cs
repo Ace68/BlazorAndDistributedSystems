@@ -88,7 +88,7 @@ public class BrewOrderSaga(IServiceBus serviceBus, ISagaRepository repository, I
         sagaState.BrewOrderProcessed = true;
         await Repository.SaveAsync(correlationId, sagaState);
 
-        await ServiceBus.SendAsync(new BrewOrderLetter(@event.BrewOrderId, correlationId));
+        await ServiceBus.SendAsync(new CloseBrewOrder(@event.BrewOrderId, correlationId));
     }
 
     public async Task HandleAsync(BrewOrderSagaCompleted @event)
