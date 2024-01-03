@@ -3,27 +3,41 @@
 
 <FluentToolbar id="toolbar-slotted-label">
 	<span slot="label">@SignalRStatus</span>
-	<FluentButton Appearance="Appearance.Accent">Anyone want a beer?</FluentButton>
+	<FluentButton Appearance="Appearance.Accent" OnClick="@StartSignalRAsync">Call Brewer</FluentButton>
+	<FluentButton Appearance="Appearance.Accent">Order a Beer</FluentButton>
 </FluentToolbar>
 <br/>
 <hr/>
 <FluentStack>
-	<FluentCard Width="600px" Height="400px" >
-		<image src="images/A_brewer_is_waiting_for_new_orders_1.jpg" />
-	</FluentCard>
-	<FluentCard Width="600px" Height="400px" AreaRestricted="false">
-		<p>This card's content is not restricted to its area. Open the select list below to see the result</p>
-	</FluentCard>
+	<div hidden="@HideWaitingForNewOrder">
+		<FluentCard Width="600px" Height="400px">
+			<FluentButton Appearance="Appearance.Accent">@TellEveryoneThatClientIsConnected</FluentButton>
+			<hr/>
+			<image src="images/A_brewer_is_waiting_for_new_orders_1.jpg" />
+		</FluentCard>
+	</div>
+		<div hidden="@HideOrderAccepted">
+		<FluentCard Width="600px" Height="400px" AreaRestricted="false">
+			<FluentButton Appearance="Appearance.Accent">@TellEveryoneThatBrewOrderSagaWasStarted</FluentButton>
+			<hr />
+			<image src="images/A_brewer_is_happy_because_has_received_a_3.jpg"/>
+		</FluentCard>
+	</div>
+
 </FluentStack>
 <br />
 <FluentStack>
-	<FluentCard Width="600px" Height="400px">
-		<image src="images/A_brewer_is_waiting_for_new_orders_1.jpg" />
-		<FluentButton Appearance="Appearance.Accent">Anyone want a beer?</FluentButton>
-
-
-	</FluentCard>
-	<FluentCard Width="600px" Height="400px" AreaRestricted="false">
-		<p>This card's content is not restricted to its area. Open the select list below to see the result</p>
-	</FluentCard>
+	<div hidden="@HideOrderProcessed">
+		<FluentCard Width="600px" Height="400px">
+			<FluentButton Appearance="Appearance.Accent">@TellEveryoneThatBrewOrderWasProcessed</FluentButton>
+			<hr />
+			<image src="images/A_brewer_is_happy_because_has_received_a_3.jpg"/>
+		</FluentCard>
+	</div>
+	
+		<div hidden="@HideSagaCompleted">
+		<FluentCard Width="600px" Height="400px" AreaRestricted="false">
+			<FluentButton Appearance="Appearance.Accent">@TellEveryoneThatBrewOrderSagaWasCompleted</FluentButton>
+		</FluentCard>
+	</div>
 </FluentStack>

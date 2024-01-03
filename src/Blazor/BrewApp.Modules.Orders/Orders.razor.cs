@@ -8,11 +8,20 @@ public class OrdersBase : ComponentBase, IDisposable
 {
 	[Inject] private AppConfiguration AppConfiguration { get; set; } = default!;
 
-	protected string SignalRStatus { get; set; } = "Connecting ...";
+	protected string SignalRStatus { get; set; } = "Brewer Connecting ...";
+	protected string TellEveryoneThatClientIsConnected { get; set; } = string.Empty;
+	protected string TellEveryoneThatBrewOrderSagaWasStarted { get; set; } = string.Empty;
+	protected string TellEveryoneThatBrewOrderWasProcessed { get; set; } = string.Empty;
+	protected string TellEveryoneThatBrewOrderSagaWasCompleted { get; set; } = string.Empty;
+
+	protected bool HideWaitingForNewOrder { get; set; } = true;
+	protected bool HideOrderAccepted { get; set; } = true;
+	protected bool HideOrderProcessed { get; set; } = true;
+	protected bool HideSagaCompleted { get; set; } = true;
 
 	private HubConnection? _hubConnection;
 
-	protected override async Task OnInitializedAsync()
+	protected async Task StartSignalRAsync()
 	{
 		_hubConnection = new HubConnectionBuilder()
 			.WithUrl(new Uri(AppConfiguration.SignalRUri))
@@ -21,29 +30,62 @@ public class OrdersBase : ComponentBase, IDisposable
 			.WithAutomaticReconnect()
 			.Build();
 
-		_hubConnection.On<string, string>("TellEveryoneThatClientIsConnected", UpdateBrewOrderMessagesAsync);
+		_hubConnection.On<string, string>("TellEveryoneThatClientIsConnected", UpdateTellEveryoneThatClientIsConnectedAsync);
 
-		_hubConnection.On<string, string>("TellEveryoneThatBrewOrderSagaWasStarted", UpdateBrewOrderMessagesAsync);
-		_hubConnection.On<string, string>("TellEveryoneThatBrewOrderWasApproved", UpdateBrewOrderMessagesAsync);
-		_hubConnection.On<string, string>("TellEveryoneThatBrewOrderWasProcessed", UpdateBrewOrderMessagesAsync);
-		_hubConnection.On<string, string>("TellEveryoneThatBrewOrderSagaWasCompleted", UpdateBrewOrderMessagesAsync);
+		_hubConnection.On<string, string>("TellEveryoneThatBrewOrderSagaWasStarted", UpdateTellEveryoneThatBrewOrderSagaWasStartedAsync);
+		_hubConnection.On<string, string>("TellEveryoneThatBrewOrderWasApproved", UpdateTellEveryoneThatBrewOrderWasProcessedAsync);
+		_hubConnection.On<string, string>("TellEveryoneThatBrewOrderWasProcessed", UpdateTellEveryoneThatBrewOrderWasProcessedAsync);
+		_hubConnection.On<string, string>("TellEveryoneThatBrewOrderSagaWasCompleted", UpdateTellEveryoneThatBrewOrderSagaWasCompletedAsync);
 
 		await _hubConnection.StartAsync();
 
-		SignalRStatus = _hubConnection.State == HubConnectionState.Connected ? "SignalR is Connected" : "SignalR Is Not Connected";
-
-		await base.OnInitializedAsync();
+		SignalRStatus = _hubConnection.State == HubConnectionState.Connected ? "Brewer is Connected" : "Brewer Is Not Connected";
 	}
 
-	private async Task UpdateBrewOrderMessagesAsync(string target, string message)
+	private async Task UpdateTellEveryoneThatClientIsConnectedAsync(string target, string message)
 	{
-		if (string.IsNullOrWhiteSpace(message))
-			message = "No Message";
+		TellEveryoneThatClientIsConnected = message;
 
-		//XmasLetterMessages = XmasLetterMessages.Concat(new List<string>
-		//{
-		//	message
-		//});
+		HideWaitingForNewOrder = false;
+		HideOrderAccepted = true;
+		HideOrderProcessed = true;
+		HideSagaCompleted = true;
+
+		await InvokeAsync(StateHasChanged);
+	}
+
+	private async Task UpdateTellEveryoneThatBrewOrderSagaWasStartedAsync(string target, string message)
+	{
+		TellEveryoneThatBrewOrderSagaWasStarted = message;
+
+		HideWaitingForNewOrder = false;
+		HideOrderAccepted = false;
+		HideOrderProcessed = true;
+		HideSagaCompleted = true;
+
+		await InvokeAsync(StateHasChanged);
+	}
+
+	private async Task UpdateTellEveryoneThatBrewOrderWasProcessedAsync(string target, string message)
+	{
+		TellEveryoneThatBrewOrderWasProcessed = message;
+
+		HideWaitingForNewOrder = false;
+		HideOrderAccepted = false;
+		HideOrderProcessed = false;
+		HideSagaCompleted = false;
+
+		await InvokeAsync(StateHasChanged);
+	}
+
+	private async Task UpdateTellEveryoneThatBrewOrderSagaWasCompletedAsync(string target, string message)
+	{
+		TellEveryoneThatBrewOrderSagaWasCompleted = message;
+
+		HideWaitingForNewOrder = false;
+		HideOrderAccepted = false;
+		HideOrderProcessed = false;
+		HideSagaCompleted = false;
 
 		await InvokeAsync(StateHasChanged);
 	}
