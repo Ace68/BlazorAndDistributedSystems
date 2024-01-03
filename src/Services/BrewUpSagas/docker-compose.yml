@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+
+  xmas-sagas:
+     container_name: "xmassagas"
+     image: xmassagas:latest
+     ports:
+         - 5000:8080

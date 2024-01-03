@@ -1,0 +1,146 @@
+version: '3.8'
+
+services:
+
+  receiver-eventstore:
+     
+     container_name: "receiver-eventstore"
+     
+     image: eventstore/eventstore:latest
+
+     environment:
+         - EVENTSTORE_CLUSTER_SIZE=1
+         - EVENTSTORE_RUN_PROJECTIONS=All
+         - EVENTSTORE_START_STANDARD_PROJECTIONS=true
+         - EVENTSTORE_EXT_TCP_PORT=1113
+         - EVENTSTORE_HTTP_PORT=2113
+         - EVENTSTORE_INSECURE=true
+         - EVENTSTORE_ENABLE_EXTERNAL_TCP=true
+         - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
+      
+     ports:
+         - 3113:1113
+         - 4113:2113
+
+     volumes:
+         - type: volume
+           source: receiver-eventstore-data
+           target: /var/lib/receiver-eventstore
+         - type: volume
+           source: receiver-eventstore-logs
+           target: /var/log/receiver-eventstore
+
+  warehouses-eventstore:
+     
+     container_name: "warehouses-eventstore"
+     
+     image: eventstore/eventstore:latest
+
+     environment:
+         - EVENTSTORE_CLUSTER_SIZE=1
+         - EVENTSTORE_RUN_PROJECTIONS=All
+         - EVENTSTORE_START_STANDARD_PROJECTIONS=true
+         - EVENTSTORE_EXT_TCP_PORT=1113
+         - EVENTSTORE_HTTP_PORT=2113
+         - EVENTSTORE_INSECURE=true
+         - EVENTSTORE_ENABLE_EXTERNAL_TCP=true
+         - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
+      
+     ports:
+         - 5113:1113
+         - 6113:2113
+
+     volumes:
+         - type: volume
+           source: warehouses-eventstore-data
+           target: /var/lib/warehouses-eventstore
+         - type: volume
+           source: warehouses-eventstore-logs
+           target: /var/log/warehouses-eventstore
+
+  logistics-eventstore:
+     
+     container_name: "logistics-eventstore"
+     
+     image: eventstore/eventstore:latest
+
+     environment:
+         - EVENTSTORE_CLUSTER_SIZE=1
+         - EVENTSTORE_RUN_PROJECTIONS=All
+         - EVENTSTORE_START_STANDARD_PROJECTIONS=true
+         - EVENTSTORE_EXT_TCP_PORT=1113
+         - EVENTSTORE_HTTP_PORT=2113
+         - EVENTSTORE_INSECURE=true
+         - EVENTSTORE_ENABLE_EXTERNAL_TCP=true
+         - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
+      
+     ports:
+         - 7113:1113
+         - 8113:2113
+
+     volumes:
+         - type: volume
+           source: logistics-eventstore-data
+           target: /var/lib/logistics-eventstore
+         - type: volume
+           source: logistics-eventstore-logs
+           target: /var/log/logistics-eventstore
+           
+
+  sagas-mongodb:
+      image: mongo
+      ports:
+          - 27017:27017
+
+      volumes:
+         - type: volume
+           source: sagas-mongodb-data
+           target: /var/lib/sagas-mongodb
+
+  receiver-mongodb:
+      image: mongo
+      ports:
+          - 37017:27017
+
+      volumes:
+         - type: volume
+           source: receiver-mongodb-data
+           target: /var/lib/receiver-mongodb
+
+  warehouses-mongodb:
+      image: mongo
+      ports:
+          - 47017:27017
+
+      volumes:
+         - type: volume
+           source: warehouses-mongodb-data
+           target: /var/lib/warehouses-mongodb
+
+  logistics-mongodb:
+      image: mongo
+      ports:
+          - 57017:27017
+
+      volumes:
+         - type: volume
+           source: logistics-mongodb-data
+           target: /var/lib/logistics-mongodb
+  
+  rabbitmq:
+      image: rabbitmq:3.8-management-alpine
+      ports:
+          - 5672:5672
+          - 15672:15672
+
+volumes:
+  receiver-eventstore-data:
+  receiver-eventstore-logs:
+  warehouses-eventstore-data:
+  warehouses-eventstore-logs:
+  logistics-eventstore-data:
+  logistics-eventstore-logs:
+  sagas-mongodb-data:
+  receiver-mongodb-data:
+  warehouses-mongodb-data:
+  logistics-mongodb-data:

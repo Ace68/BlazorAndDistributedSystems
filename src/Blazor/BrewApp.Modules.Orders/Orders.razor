@@ -1,3 +1,25 @@
 ﻿@page "/orders"
 
-<image src="images/A_brewer_is_waiting_for_new_orders_1.jpg" />
+<FluentButton Appearance="Appearance.Accent">Anyone want a beer?</FluentButton>
+<br/>
+<hr/>
+<FluentStack>
+	<FluentCard Width="600px" Height="400px" >
+		<image src="images/A_brewer_is_waiting_for_new_orders_1.jpg" />
+	</FluentCard>
+	<FluentCard Width="600px" Height="400px" AreaRestricted="false">
+		<p>This card's content is not restricted to its area. Open the select list below to see the result</p>
+	</FluentCard>
+</FluentStack>
+<br />
+<FluentStack>
+	<FluentCard Width="600px" Height="400px">
+		<image src="images/A_brewer_is_waiting_for_new_orders_1.jpg" />
+		<FluentButton Appearance="Appearance.Accent">Anyone want a beer?</FluentButton>
+
+
+	</FluentCard>
+	<FluentCard Width="600px" Height="400px" AreaRestricted="false">
+		<p>This card's content is not restricted to its area. Open the select list below to see the result</p>
+	</FluentCard>
+</FluentStack>

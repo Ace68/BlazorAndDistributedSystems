@@ -36,7 +36,7 @@ public class AppBase : ComponentBase, IDisposable
     }
 
     #region Dispose
-    public void Dispose(bool disposing)
+    protected virtual void Dispose(bool disposing)
     {
         if (disposing)
         {

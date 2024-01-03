@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+
+  xmas-receiver:
+     container_name: "xmasreceiver"
+     image: xmasreceiver:latest
+     ports:
+         - 5100:8080

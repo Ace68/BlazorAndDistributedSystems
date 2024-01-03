@@ -1,6 +1,6 @@
 {
-  "name": "TreeMeet",
-  "short_name": "TreeMeet",
+  "name": "BrewApp",
+  "short_name": "BrewApp",
   "id": "./",
   "start_url": "./",
   "display": "standalone",

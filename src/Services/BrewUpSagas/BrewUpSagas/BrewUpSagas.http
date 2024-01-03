@@ -1,0 +1,6 @@
+@XmasSagas_HostAddress = http://localhost:5028
+
+GET {{XmasSagas_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
