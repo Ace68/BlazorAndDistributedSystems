@@ -1,4 +1,6 @@
 using BrewApp;
+using BrewApp.Shared.Configuration;
+using BrewApp.Shared.Helpers;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.FluentUI.AspNetCore.Components;
@@ -9,6 +11,13 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+#region Configuration
+builder.Services.AddSingleton(_ => builder.Configuration.GetSection("BrewApp:AppConfiguration")
+    .Get<AppConfiguration>());
+builder.Services.AddApplicationService();
+#endregion
+
 builder.Services.AddFluentUIComponents();
 
 await builder.Build().RunAsync();

@@ -1,6 +1,10 @@
-﻿@page "/orders"
+﻿@inherits OrdersBase
+@page "/orders"
 
-<FluentButton Appearance="Appearance.Accent">Anyone want a beer?</FluentButton>
+<FluentToolbar id="toolbar-slotted-label">
+	<span slot="label">@SignalRStatus</span>
+	<FluentButton Appearance="Appearance.Accent">Anyone want a beer?</FluentButton>
+</FluentToolbar>
 <br/>
 <hr/>
 <FluentStack>
