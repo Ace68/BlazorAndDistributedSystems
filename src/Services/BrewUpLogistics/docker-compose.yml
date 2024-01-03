@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+
+  xmas-logistics:
+     container_name: "xmaslogistics"
+     image: xmaslogistics:latest
+     ports:
+         - 5300:8080

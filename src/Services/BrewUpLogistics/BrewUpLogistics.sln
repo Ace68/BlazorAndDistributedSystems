@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "90 Presentation", "90 Presentation", "{05402C6E-1457-4D4A-8D2D-0F3C53F98D27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewUpLogistics", "BrewUpLogistics\BrewUpLogistics.csproj", "{86044165-3B44-4BA9-AB3E-0E257793C992}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "50 Facade", "50 Facade", "{32818DAA-FBF5-47C3-811D-1C5711DDB1D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewUpLogistics.Facade", "BrewUpLogistics.Facade\BrewUpLogistics.Facade.csproj", "{64182DCA-3071-44BB-882E-2BEF5FD6A6BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "30 Shared", "30 Shared", "{0C4D1291-DDE1-4587-AD8E-6ED8D186DBEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewUpLogistics.Shared", "BrewUpLogistics.Shared\BrewUpLogistics.Shared.csproj", "{50671158-4ED3-477B-8C1E-608FE3AFBC98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewUpLogistics.Messages", "BrewUpLogistics.Messages\BrewUpLogistics.Messages.csproj", "{F820CEC6-1AAB-4EDA-A641-68114D49C5C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10 Domain", "10 Domain", "{CBE9CBA4-EEC9-4EBA-8A6B-D777FCAF687B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewUpLogistics.Domain", "BrewUpLogistics.Domain\BrewUpLogistics.Domain.csproj", "{BCE68BA1-90F3-4939-B302-9AF8D2665130}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "40 ReadModel", "40 ReadModel", "{79BF2A46-EE9C-4F1A-A2B4-AD649E137795}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewUpLogistics.ReadModel", "BrewUpLogistics.ReadModel\BrewUpLogistics.ReadModel.csproj", "{F29B4842-EEFE-474F-9D53-3B6D278B5255}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "80 Infrastructures", "80 Infrastructures", "{021BE86A-507B-454E-AE08-3E6BA689F8CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewUpLogistics.Infrastructures", "BrewUpLogistics.Infrastructures\BrewUpLogistics.Infrastructures.csproj", "{0A036859-7038-4487-9B2F-177905B4E8F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{86044165-3B44-4BA9-AB3E-0E257793C992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86044165-3B44-4BA9-AB3E-0E257793C992}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86044165-3B44-4BA9-AB3E-0E257793C992}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86044165-3B44-4BA9-AB3E-0E257793C992}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64182DCA-3071-44BB-882E-2BEF5FD6A6BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64182DCA-3071-44BB-882E-2BEF5FD6A6BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64182DCA-3071-44BB-882E-2BEF5FD6A6BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64182DCA-3071-44BB-882E-2BEF5FD6A6BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50671158-4ED3-477B-8C1E-608FE3AFBC98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50671158-4ED3-477B-8C1E-608FE3AFBC98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50671158-4ED3-477B-8C1E-608FE3AFBC98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50671158-4ED3-477B-8C1E-608FE3AFBC98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F820CEC6-1AAB-4EDA-A641-68114D49C5C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F820CEC6-1AAB-4EDA-A641-68114D49C5C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F820CEC6-1AAB-4EDA-A641-68114D49C5C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F820CEC6-1AAB-4EDA-A641-68114D49C5C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCE68BA1-90F3-4939-B302-9AF8D2665130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCE68BA1-90F3-4939-B302-9AF8D2665130}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCE68BA1-90F3-4939-B302-9AF8D2665130}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCE68BA1-90F3-4939-B302-9AF8D2665130}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F29B4842-EEFE-474F-9D53-3B6D278B5255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F29B4842-EEFE-474F-9D53-3B6D278B5255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F29B4842-EEFE-474F-9D53-3B6D278B5255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F29B4842-EEFE-474F-9D53-3B6D278B5255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A036859-7038-4487-9B2F-177905B4E8F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A036859-7038-4487-9B2F-177905B4E8F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A036859-7038-4487-9B2F-177905B4E8F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A036859-7038-4487-9B2F-177905B4E8F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{86044165-3B44-4BA9-AB3E-0E257793C992} = {05402C6E-1457-4D4A-8D2D-0F3C53F98D27}
+		{64182DCA-3071-44BB-882E-2BEF5FD6A6BF} = {32818DAA-FBF5-47C3-811D-1C5711DDB1D4}
+		{50671158-4ED3-477B-8C1E-608FE3AFBC98} = {0C4D1291-DDE1-4587-AD8E-6ED8D186DBEE}
+		{F820CEC6-1AAB-4EDA-A641-68114D49C5C9} = {0C4D1291-DDE1-4587-AD8E-6ED8D186DBEE}
+		{BCE68BA1-90F3-4939-B302-9AF8D2665130} = {CBE9CBA4-EEC9-4EBA-8A6B-D777FCAF687B}
+		{F29B4842-EEFE-474F-9D53-3B6D278B5255} = {79BF2A46-EE9C-4F1A-A2B4-AD649E137795}
+		{0A036859-7038-4487-9B2F-177905B4E8F0} = {021BE86A-507B-454E-AE08-3E6BA689F8CB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {39CE5B5D-B65E-43BC-83AF-C0AAE30108CE}
+	EndGlobalSection
+EndGlobal
