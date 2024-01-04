@@ -8,10 +8,10 @@ namespace BrewUpSales.ReadModel.Services;
 
 public interface IBrewOrderService
 {
-    Task ReceiveBrewOrderAsync(BrewOrderId aggregateId, BrewOrderNumber brewOrderNumber, ReceivedOn receivedOn,
-        BrewOrderBody brewOrderBody, BrewOrderStatus xmasLetterStatus,
-        CancellationToken cancellationToken = default);
+	Task ReceiveBrewOrderAsync(BrewOrderId aggregateId, BrewOrderNumber brewOrderNumber, ReceivedOn receivedOn,
+		BrewOrderBody brewOrderBody, BrewOrderStatus brewOrderStatus,
+		CancellationToken cancellationToken = default);
 
-    Task<PagedResult<BrewOrderContract>> GetBrewOrdersAsync(CancellationToken cancellationToken);
-    Task CloseBrewOrderAsync(BrewOrderId brewOrderId, CancellationToken cancellationToken);
+	Task<PagedResult<BrewOrderContract>> GetBrewOrdersAsync(CancellationToken cancellationToken);
+	Task CloseBrewOrderAsync(BrewOrderId brewOrderId, CancellationToken cancellationToken);
 }

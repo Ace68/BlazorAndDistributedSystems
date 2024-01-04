@@ -4,10 +4,10 @@ using BrewUpSales.Shared.BindingContracts;
 
 namespace BrewUpSales.Facade;
 
-public sealed class ReceiverFacade(IBrewOrderService xmasLetterService) : IReceiverFacade
+public sealed class ReceiverFacade(IBrewOrderService brewOrderService) : IReceiverFacade
 {
-    public async Task<PagedResult<BrewOrderContract>> GetBrewOrdersAsync(CancellationToken cancellationToken)
-    {
-        return await xmasLetterService.GetBrewOrdersAsync(cancellationToken);
-    }
+	public async Task<PagedResult<BrewOrderContract>> GetBrewOrdersAsync(CancellationToken cancellationToken)
+	{
+		return await brewOrderService.GetBrewOrdersAsync(cancellationToken);
+	}
 }

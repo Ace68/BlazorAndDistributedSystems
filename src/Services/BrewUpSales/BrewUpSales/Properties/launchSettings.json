@@ -4,12 +4,12 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:10394",
+      "applicationUrl": "http://localhost:10396",
       "sslPort": 44314
     }
   },
   "profiles": {
-    "XmasReceiver": {
+    "BrewUpSales": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "documentation",

@@ -4,9 +4,9 @@ using Muflone.Messages.Commands;
 
 namespace BrewUpLogistics.Messages.Commands;
 
-public sealed class SendBrewOrder(BrewOrderId aggregateId, Guid commitId, BrewOrderBody letterBody)
-    : Command(aggregateId, commitId)
+public sealed class SendBrewOrder(BrewOrderId aggregateId, Guid commitId, BrewOrderBody brewOrderBody)
+	: Command(aggregateId, commitId)
 {
-    public readonly BrewOrderId XmasLetterId = aggregateId;
-    public readonly BrewOrderBody LetterBody = letterBody;
+	public readonly BrewOrderId BrewOrderId = aggregateId;
+	public readonly BrewOrderBody BrewOrderBody = brewOrderBody;
 }

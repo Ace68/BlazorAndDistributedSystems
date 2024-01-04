@@ -15,12 +15,12 @@ app.MapEndpoints();
 // Configure the HTTP request pipeline.
 app.UseSwagger(s =>
 {
-    s.RouteTemplate = "documentation/{documentName}/documentation.json";
+	s.RouteTemplate = "documentation/{documentName}/documentation.json";
 });
 app.UseSwaggerUI(s =>
 {
-    s.SwaggerEndpoint("/documentation/v1/documentation.json", "XmasDev Api Receiver");
-    s.RoutePrefix = "documentation";
+	s.SwaggerEndpoint("/documentation/v1/documentation.json", "BrewUp Api Sales");
+	s.RoutePrefix = "documentation";
 });
 
 app.Run();

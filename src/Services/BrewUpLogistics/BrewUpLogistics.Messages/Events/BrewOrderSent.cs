@@ -4,8 +4,8 @@ using Muflone.Messages.Events;
 
 namespace BrewUpLogistics.Messages.Events;
 
-public sealed class BrewOrderSent(BrewOrderId aggregateId, Guid correlationId, BrewOrderBody letterBody) : DomainEvent(aggregateId, correlationId)
+public sealed class BrewOrderSent(BrewOrderId aggregateId, Guid correlationId, BrewOrderBody brewOrderBody) : DomainEvent(aggregateId, correlationId)
 {
-    public readonly BrewOrderId XmasLetterId = aggregateId;
-    public readonly BrewOrderBody LetterBody = letterBody;
+	public readonly BrewOrderId BrewOrderId = aggregateId;
+	public readonly BrewOrderBody BrewOrderBody = brewOrderBody;
 }

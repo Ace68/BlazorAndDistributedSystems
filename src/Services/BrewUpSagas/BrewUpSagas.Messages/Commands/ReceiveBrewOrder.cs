@@ -5,12 +5,12 @@ using Muflone.Messages.Commands;
 namespace BrewUpSagas.Messages.Commands;
 
 public sealed class ReceiveBrewOrder(BrewOrderId aggregateId, Guid commitId, BrewOrderNumber brewOrderNumber,
-        ReceivedOn receivedOn, BrewOrderBody letterBody)
-    : Command(aggregateId, commitId)
+		ReceivedOn receivedOn, BrewOrderBody brewOrderBody)
+	: Command(aggregateId, commitId)
 {
-    public readonly BrewOrderId BrewOrderId = aggregateId;
-    public readonly BrewOrderNumber BrewOrderNumber = brewOrderNumber;
+	public readonly BrewOrderId BrewOrderId = aggregateId;
+	public readonly BrewOrderNumber BrewOrderNumber = brewOrderNumber;
 
-    public readonly ReceivedOn ReceivedOn = receivedOn;
-    public readonly BrewOrderBody LetterBody = letterBody;
+	public readonly ReceivedOn ReceivedOn = receivedOn;
+	public readonly BrewOrderBody BrewOrderBody = brewOrderBody;
 }

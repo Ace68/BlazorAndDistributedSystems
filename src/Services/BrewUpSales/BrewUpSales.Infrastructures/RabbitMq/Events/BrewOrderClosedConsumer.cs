@@ -9,14 +9,14 @@ using Muflone.Transport.RabbitMQ.Consumers;
 
 namespace BrewUpSales.Infrastructures.RabbitMq.Events;
 
-public sealed class BrewOrderClosedConsumer(IBrewOrderService xmasLetterService, IEventBus eventBus,
-        IMufloneConnectionFactory connectionFactory, ILoggerFactory loggerFactory)
-    : DomainEventsConsumerBase<BrewOrderClosed>(connectionFactory,
-    loggerFactory)
+public sealed class BrewOrderClosedConsumer(IBrewOrderService brewOrderService, IEventBus eventBus,
+		IMufloneConnectionFactory connectionFactory, ILoggerFactory loggerFactory)
+	: DomainEventsConsumerBase<BrewOrderClosed>(connectionFactory,
+	loggerFactory)
 {
-    protected override IEnumerable<IDomainEventHandlerAsync<BrewOrderClosed>> HandlersAsync { get; } = new List<IDomainEventHandlerAsync<BrewOrderClosed>>
-    {
-        new BrewOrderClosedEventHandler(loggerFactory, xmasLetterService),
-        new BrewOrderClosedForIntegrationEventHandler(loggerFactory, eventBus)
-    };
+	protected override IEnumerable<IDomainEventHandlerAsync<BrewOrderClosed>> HandlersAsync { get; } = new List<IDomainEventHandlerAsync<BrewOrderClosed>>
+	{
+		new BrewOrderClosedEventHandler(loggerFactory, brewOrderService),
+		new BrewOrderClosedForIntegrationEventHandler(loggerFactory, eventBus)
+	};
 }
