@@ -3,8 +3,9 @@
 
 <FluentToolbar id="toolbar-slotted-label">
 	<span slot="label">@SignalRStatus</span>
-	<FluentButton Appearance="Appearance.Accent" OnClick="@StartSignalRAsync">Call Brewer</FluentButton>
-	<FluentButton Appearance="Appearance.Accent">Order a Beer</FluentButton>
+	<FluentButton Appearance="Appearance.Accent" OnClick="@StartSignalRAsync">Call the Brewer</FluentButton>
+	<FluentButton Appearance="Appearance.Accent" OnClick="@StopSignalRAsync">Say Hello to the Brewer</FluentButton>
+	<FluentButton Appearance="Appearance.Accent" OnClick="@OrderBeerAsync">Order a Beer</FluentButton>
 </FluentToolbar>
 <br/>
 <hr/>
@@ -31,13 +32,15 @@
 		<FluentCard Width="600px" Height="400px">
 			<FluentButton Appearance="Appearance.Accent">@TellEveryoneThatBrewOrderWasProcessed</FluentButton>
 			<hr />
-			<image src="images/A_brewer_is_happy_because_has_received_a_3.jpg"/>
+				<image src="images/Beer_drinker_waiting_for_a_beer_1.jpg" />
 		</FluentCard>
 	</div>
 	
 		<div hidden="@HideSagaCompleted">
 		<FluentCard Width="600px" Height="400px" AreaRestricted="false">
 			<FluentButton Appearance="Appearance.Accent">@TellEveryoneThatBrewOrderSagaWasCompleted</FluentButton>
+			<hr />
+				<image src="images/Beer_drinker_happy_to_drink_his_beer_0.jpg" />
 		</FluentCard>
 	</div>
 </FluentStack>

@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewApp", "BrewApp\BrewApp.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "30 Shared", "30 Shared", "{9CC97414-9C5D-4645-9DB8-8CE3DFED847F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewApp.Shared", "BrewApp.Shared\BrewApp.Shared.csproj", "{C4C51E0E-ADC3-447B-9000-B83E1B653859}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewApp.Shared", "BrewApp.Shared\BrewApp.Shared.csproj", "{C4C51E0E-ADC3-447B-9000-B83E1B653859}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewApp.Modules.Orders.Extensions", "BrewApp.Modules.Orders.Extensions\BrewApp.Modules.Orders.Extensions.csproj", "{987A9321-87B4-4018-A3FB-0A7CE49590E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{C4C51E0E-ADC3-447B-9000-B83E1B653859}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4C51E0E-ADC3-447B-9000-B83E1B653859}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4C51E0E-ADC3-447B-9000-B83E1B653859}.Release|Any CPU.Build.0 = Release|Any CPU
+		{987A9321-87B4-4018-A3FB-0A7CE49590E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{987A9321-87B4-4018-A3FB-0A7CE49590E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{987A9321-87B4-4018-A3FB-0A7CE49590E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{987A9321-87B4-4018-A3FB-0A7CE49590E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{949BFBB9-E61A-471F-812E-2C284803F5CC} = {7DA608C1-8EDF-4A1D-B9FD-27FB3777F898}
 		{55967AA0-818C-4F12-866D-F0F87E42C0A8} = {B4F04681-8F14-4902-8E7D-3B21E87AC7FC}
 		{C4C51E0E-ADC3-447B-9000-B83E1B653859} = {9CC97414-9C5D-4645-9DB8-8CE3DFED847F}
+		{987A9321-87B4-4018-A3FB-0A7CE49590E5} = {7DA608C1-8EDF-4A1D-B9FD-27FB3777F898}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {72D330E6-10EE-4FBB-8608-E44761567F98}

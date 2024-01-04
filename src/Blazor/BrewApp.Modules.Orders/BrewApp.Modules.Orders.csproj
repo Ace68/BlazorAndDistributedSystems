@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BrewApp.Modules.Orders.Extensions\BrewApp.Modules.Orders.Extensions.csproj" />
     <ProjectReference Include="..\BrewApp.Shared\BrewApp.Shared.csproj" />
   </ItemGroup>
 

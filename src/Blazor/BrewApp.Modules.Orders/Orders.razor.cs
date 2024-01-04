@@ -1,4 +1,6 @@
-﻿using BrewApp.Shared.Configuration;
+﻿using BrewApp.Modules.Orders.Extensions.Contracts;
+using BrewApp.Modules.Orders.Extensions.Services;
+using BrewApp.Shared.Configuration;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 
@@ -7,6 +9,7 @@ namespace BrewApp.Modules.Orders;
 public class OrdersBase : ComponentBase, IDisposable
 {
 	[Inject] private AppConfiguration AppConfiguration { get; set; } = default!;
+	[Inject] private IBrewOrderService BrewOrderService { get; set; } = default!;
 
 	protected string SignalRStatus { get; set; } = "Brewer Connecting ...";
 	protected string TellEveryoneThatClientIsConnected { get; set; } = string.Empty;
@@ -40,6 +43,35 @@ public class OrdersBase : ComponentBase, IDisposable
 		await _hubConnection.StartAsync();
 
 		SignalRStatus = _hubConnection.State == HubConnectionState.Connected ? "Brewer is Connected" : "Brewer Is Not Connected";
+	}
+
+	protected async Task StopSignalRAsync()
+	{
+		if (_hubConnection != null)
+		{
+			await _hubConnection.StopAsync();
+			_hubConnection = null;
+
+			SignalRStatus = "Brewer Is Not Connected";
+		}
+
+		HideWaitingForNewOrder = true;
+		HideOrderAccepted = true;
+		HideOrderProcessed = true;
+		HideSagaCompleted = true;
+
+		await InvokeAsync(StateHasChanged);
+	}
+
+	protected async Task OrderBeerAsync()
+	{
+		BrewOrderJson brewOrder = new()
+		{
+			BrewOrderNumber = $"{DateTime.UtcNow.Year:0000}{DateTime.UtcNow.Month:00}{DateTime.UtcNow.Day:00}-{DateTime.UtcNow.Hour:00}{DateTime.UtcNow.Minute:00}",
+			ReceivedOn = DateTime.UtcNow,
+			BrewOrderBody = "I wish a Beer"
+		};
+		await BrewOrderService.SendBrewOrderAsync(brewOrder);
 	}
 
 	private async Task UpdateTellEveryoneThatClientIsConnectedAsync(string target, string message)
