@@ -1,18 +1,10 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
-using System.Collections.ObjectModel;
 
 namespace BrewUpSagas.Orchestrators.Hubs;
 
 public sealed class HubService(IHubContext<BrewUpHub, IHubsHelper> hubContext) : BackgroundService, IHubService
 {
-	public ObservableCollection<OutMessage> MessagesOutbox { get; set; } = new();
-
-	public void Publish(string user, string message, string method)
-	{
-		MessagesOutbox.Add(new OutMessage(user, message, "TellEveryoneThatClientIsConnected"));
-	}
-
 	public async Task TellEveryoneThatClientIsConnected(string user, string message)
 	{
 		await hubContext.Clients.All.TellEveryoneThatClientIsConnected(user, message).ConfigureAwait(false);
@@ -43,12 +35,33 @@ public sealed class HubService(IHubContext<BrewUpHub, IHubsHelper> hubContext) :
 		await hubContext.Clients.All.TellEveryoneThatBrewOrderSagaWasCompleted(user, message).ConfigureAwait(false);
 	}
 
-	protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+	protected override Task ExecuteAsync(CancellationToken stoppingToken)
 	{
-		while (!stoppingToken.IsCancellationRequested)
-		{
+		stoppingToken.ThrowIfCancellationRequested();
 
-			await Task.Delay(1000, stoppingToken).ConfigureAwait(false);
+		SagaBroker.MessagesOutbox.CollectionChanged += OnMessageReceived;
+
+		return Task.CompletedTask;
+	}
+
+	private void OnMessageReceived(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs args)
+	{
+		if (args.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+		{
+			foreach (OutMessage message in args.NewItems)
+			{
+				switch (message.Method)
+				{
+					case "TellEveryoneThatClientIsConnected":
+						Task.Run(async () => await TellEveryoneThatClientIsConnected(message.User, message.Message));
+						break;
+
+					case "TellEveryoneThatBrewOrderSagaWasStarted":
+						Task.Run(async () => await TellEveryoneThatBrewOrderSagaWasStarted(message.User, message.Message));
+						break;
+				}
+
+			}
 		}
 	}
 }
