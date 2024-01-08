@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
 
-  xmas-sagas:
-     container_name: "xmassagas"
-     image: xmassagas:latest
+  brewup-sagas:
+     container_name: "brewupsagas"
+     image: brewupsagas:latest
      ports:
          - 5000:8080

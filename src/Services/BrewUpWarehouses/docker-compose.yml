@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
 
-  xmas-warehouses:
-     container_name: "xmaswarehouses"
-     image: xmaswarehouses:latest
+  brewup-warehouses:
+     container_name: "brewupwarehouses"
+     image: brewupwarehouses:latest
      ports:
          - 5200:8080
