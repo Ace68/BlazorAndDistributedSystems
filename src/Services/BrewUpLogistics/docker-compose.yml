@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
 
-  xmas-logistics:
-     container_name: "xmaslogistics"
-     image: xmaslogistics:latest
+  brewup-logistics:
+     container_name: "brewuplogistics"
+     image: brewuplogistics:latest
      ports:
          - 5300:8080

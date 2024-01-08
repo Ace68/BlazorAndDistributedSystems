@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
 
-  xmas-receiver:
-     container_name: "xmasreceiver"
-     image: xmasreceiver:latest
+  brewup-sales:
+     container_name: "brewupsales"
+     image: brewupsales:latest
      ports:
          - 5100:8080
