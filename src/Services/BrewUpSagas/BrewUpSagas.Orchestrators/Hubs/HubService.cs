@@ -59,6 +59,18 @@ public sealed class HubService(IHubContext<BrewUpHub, IHubsHelper> hubContext) :
 					case "TellEveryoneThatBrewOrderSagaWasStarted":
 						Task.Run(async () => await TellEveryoneThatBrewOrderSagaWasStarted(message.User, message.Message));
 						break;
+
+					case "TellEveryoneThatBrewOrderWasApproved":
+						Task.Run(async () => await TellEveryoneThatBrewOrderWasApproved(message.User, message.Message));
+						break;
+
+					case "TellEveryoneThatBrewOrderWasProcessed":
+						Task.Run(async () => await TellEveryoneThatBrewOrderWasProcessed(message.User, message.Message));
+						break;
+
+					case "TellEveryoneThatBrewOrderSagaWasCompleted":
+						Task.Run(async () => await TellEveryoneThatBrewOrderSagaWasCompleted(message.User, message.Message));
+						break;
 				}
 
 			}

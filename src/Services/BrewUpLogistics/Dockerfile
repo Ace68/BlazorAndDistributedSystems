@@ -8,15 +8,15 @@ WORKDIR /src
 
 COPY . .
 
-RUN dotnet restore "XmasLogistics/XmasLogistics.csproj"
+RUN dotnet restore "BrewUpLogistics/BrewUpLogistics.csproj"
 COPY . .
-WORKDIR "/src/XmasLogistics"
-RUN dotnet build "XmasLogistics.csproj" -c Release -o /app/build
+WORKDIR "/src/BrewUpLogistics"
+RUN dotnet build "BrewUpLogistics.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "XmasLogistics.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "BrewUpLogistics.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "XmasLogistics.dll"]
+ENTRYPOINT ["dotnet", "BrewUpLogistics.dll"]
