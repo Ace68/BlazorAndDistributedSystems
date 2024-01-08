@@ -105,7 +105,7 @@ public class OrdersBase : ComponentBase, IDisposable
 		HideWaitingForNewOrder = false;
 		HideOrderAccepted = false;
 		HideOrderProcessed = false;
-		HideSagaCompleted = false;
+		HideSagaCompleted = true;
 
 		await InvokeAsync(StateHasChanged);
 	}
