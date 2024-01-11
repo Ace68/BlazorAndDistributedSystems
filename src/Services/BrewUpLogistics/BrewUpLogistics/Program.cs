@@ -19,7 +19,7 @@ app.UseSwagger(s =>
 });
 app.UseSwaggerUI(s =>
 {
-	s.SwaggerEndpoint("/documentation/v1/documentation.json", "XmasDev Logistics");
+	s.SwaggerEndpoint("/documentation/v1/documentation.json", "BrewUp Logistics");
 	s.RoutePrefix = "documentation";
 });
 

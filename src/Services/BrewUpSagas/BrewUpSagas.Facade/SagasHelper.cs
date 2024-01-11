@@ -2,7 +2,6 @@
 using BrewUpSagas.Infrastructures;
 using BrewUpSagas.Messages.Commands;
 using BrewUpSagas.Messages.IntegrationEvents;
-using BrewUpSagas.Orchestrators.Hubs;
 using BrewUpSagas.Orchestrators.Sagas;
 using BrewUpSagas.Shared.Configurations;
 using FluentValidation;
@@ -14,28 +13,27 @@ namespace BrewUpSagas.Facade;
 
 public static class SagasHelper
 {
-    public static IServiceCollection AddSagas(this IServiceCollection services)
-    {
-        services.AddFluentValidationAutoValidation();
-        services.AddValidatorsFromAssemblyContaining<BrewOrderContractValidator>();
-        services.AddSingleton<ValidationHandler>();
-        services.AddScoped<ISagasFacade, SagasFacade>();
-        services.AddSingleton<IHubService, HubService>();
+	public static IServiceCollection AddSagas(this IServiceCollection services)
+	{
+		services.AddFluentValidationAutoValidation();
+		services.AddValidatorsFromAssemblyContaining<BrewOrderContractValidator>();
+		services.AddSingleton<ValidationHandler>();
+		services.AddScoped<ISagasFacade, SagasFacade>();
 
-        services.AddScoped<ISagaStartedByAsync<StartBrewOrderSaga>, BrewOrderSaga>();
-        services.AddScoped<ISagaEventHandlerAsync<BrewOrderApproved>, BrewOrderSaga>();
-        services.AddScoped<ISagaEventHandlerAsync<BrewOrderReadyToSend>, BrewOrderSaga>();
-        services.AddScoped<ISagaEventHandlerAsync<BrewOrderProcessed>, BrewOrderSaga>();
-        services.AddScoped<ISagaEventHandlerAsync<BrewOrderSagaCompleted>, BrewOrderSaga>();
+		services.AddScoped<ISagaStartedByAsync<StartBrewOrderSaga>, BrewOrderSaga>();
+		services.AddScoped<ISagaEventHandlerAsync<BrewOrderApproved>, BrewOrderSaga>();
+		services.AddScoped<ISagaEventHandlerAsync<BrewOrderReadyToSend>, BrewOrderSaga>();
+		services.AddScoped<ISagaEventHandlerAsync<BrewOrderProcessed>, BrewOrderSaga>();
+		services.AddScoped<ISagaEventHandlerAsync<BrewOrderSagaCompleted>, BrewOrderSaga>();
 
-        return services;
-    }
+		return services;
+	}
 
-    public static IServiceCollection AddSagasInfrastructure(this IServiceCollection services,
-        MongoDbSettings mongoDbSettings, RabbitMqSettings rabbitMqSettings)
-    {
-        services.AddInfrastructures(mongoDbSettings, rabbitMqSettings);
+	public static IServiceCollection AddSagasInfrastructure(this IServiceCollection services,
+		MongoDbSettings mongoDbSettings, RabbitMqSettings rabbitMqSettings)
+	{
+		services.AddInfrastructures(mongoDbSettings, rabbitMqSettings);
 
-        return services;
-    }
+		return services;
+	}
 }

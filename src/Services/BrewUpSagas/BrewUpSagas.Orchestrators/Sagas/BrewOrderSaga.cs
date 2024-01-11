@@ -2,6 +2,7 @@
 using BrewUpSagas.Messages.IntegrationEvents;
 using BrewUpSagas.Orchestrators.Hubs;
 using BrewUpSagas.Shared.BindingContracts;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;
 using Muflone.Saga;
@@ -10,7 +11,7 @@ using Muflone.Saga.Persistence;
 namespace BrewUpSagas.Orchestrators.Sagas;
 
 public class BrewOrderSaga(IServiceBus serviceBus, ISagaRepository repository, ILoggerFactory loggerFactory,
-		IHubService hubService)
+		IHubContext<BrewUpHub> hubContext)
 	: Saga<BrewOrderSaga.BrewOrderSagaState>(serviceBus, repository, loggerFactory),
 		ISagaStartedByAsync<StartBrewOrderSaga>,
 		ISagaEventHandlerAsync<BrewOrderApproved>,
@@ -47,7 +48,7 @@ public class BrewOrderSaga(IServiceBus serviceBus, ISagaRepository repository, I
 						command.ReceivedOn, command.BrewOrderBody);
 		await ServiceBus.SendAsync(receiveBrewOrder, CancellationToken.None);
 
-		await hubService.TellEveryoneThatBrewOrderSagaWasStarted("Brewer", "Your BrewOrder has been Received");
+		await hubContext.Clients.All.SendAsync("TellEveryoneThatBrewOrderSagaWasStarted", "Brewer", "Your BrewOrder has been Received").ConfigureAwait(false);
 	}
 
 	public async Task HandleAsync(BrewOrderApproved @event)
@@ -59,7 +60,7 @@ public class BrewOrderSaga(IServiceBus serviceBus, ISagaRepository repository, I
 		sagaState.BrewOrderApproved = true;
 		await Repository.SaveAsync(correlationId, sagaState);
 
-		await hubService.TellEveryoneThatBrewOrderWasApproved("Brewer", "Your BrewOrder has been Approved");
+		await hubContext.Clients.All.SendAsync("TellEveryoneThatBrewOrderWasApproved", "Brewer", "Your BrewOrder has been Approved").ConfigureAwait(false);
 
 		await ServiceBus.SendAsync(new PrepareBrewOrder(@event.BrewOrderId, correlationId, @event.BrewOrderBody), CancellationToken.None);
 	}
@@ -82,7 +83,7 @@ public class BrewOrderSaga(IServiceBus serviceBus, ISagaRepository repository, I
 		var correlationId =
 			new Guid(@event.UserProperties.FirstOrDefault(u => u.Key.Equals("CorrelationId")).Value.ToString()!);
 
-		await hubService.TellEveryoneThatBrewOrderWasProcessed("Brewer", "Your BrewOrder has been Processed");
+		await hubContext.Clients.All.SendAsync("TellEveryoneThatBrewOrderWasProcessed", "Brewer", "Your BrewOrder has been Processed").ConfigureAwait(false);
 
 		var sagaState = await Repository.GetByIdAsync<BrewOrderSagaState>(correlationId);
 		sagaState.BrewOrderProcessed = true;
@@ -96,7 +97,7 @@ public class BrewOrderSaga(IServiceBus serviceBus, ISagaRepository repository, I
 		var correlationId =
 			new Guid(@event.UserProperties.FirstOrDefault(u => u.Key.Equals("CorrelationId")).Value.ToString()!);
 
-		await hubService.TellEveryoneThatBrewOrderSagaWasCompleted("Brewer", "Hi! I have done my work again! See you next time.");
+		await hubContext.Clients.All.SendAsync("TellEveryoneThatBrewOrderSagaWasCompleted", "Brewer", "Hi! I have done my work again! See you next time.").ConfigureAwait(false);
 
 		var sagaState = await Repository.GetByIdAsync<BrewOrderSagaState>(correlationId);
 		sagaState.BrewOrderClosed = true;

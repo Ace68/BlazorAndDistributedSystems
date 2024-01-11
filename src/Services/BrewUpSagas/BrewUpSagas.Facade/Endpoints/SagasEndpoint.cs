@@ -18,9 +18,6 @@ public static class SagasEndpoint
 		group.MapPost("breworders", HandleSendBrewOrder)
 			.WithName("SendBrewUpOrders");
 
-		group.MapPost("broadcast", HandleSignalR)
-			.WithName("SignalR");
-
 		return endpoints;
 	}
 
@@ -47,16 +44,5 @@ public static class SagasEndpoint
 
 		await sagasFacade.SendBrewOrderAsync(body, cancellationToken);
 		return Results.Ok();
-	}
-
-	public static async Task<IResult> HandleSignalR(IHubService hubService)
-	{
-		await hubService.TellEveryoneThatBrewOrderSagaWasStarted("Brewer", "Your BrewOrder has been Received");
-		await hubService.TellEveryoneThatBrewOrderWasApproved("Brewer", "Your BrewOrder has been Approved");
-		await hubService.TellEveryoneThatBrewOrderWasProcessed("Brewer", "Your BrewOrder has been Processed");
-		await hubService.TellEveryoneThatBrewOrderSagaWasCompleted("Brewer", "BrewOrderSaga is completed");
-
-
-		return Results.NoContent();
 	}
 }
