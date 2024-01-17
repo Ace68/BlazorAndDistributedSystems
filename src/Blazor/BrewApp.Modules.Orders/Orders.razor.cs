@@ -26,8 +26,13 @@ public class OrdersBase : ComponentBase, IDisposable
 
 	protected async Task StartSignalRAsync()
 	{
+		var signalRConnectionInfo = await BrewOrderService.GetSignalRConnectionInfoAsync();
+
 		_hubConnection = new HubConnectionBuilder()
-			.WithUrl(new Uri(AppConfiguration.SignalRUri))
+			.WithUrl(signalRConnectionInfo.Url, options =>
+			{
+				options.AccessTokenProvider = () => Task.FromResult(signalRConnectionInfo.AccessToken);
+			})
 			.WithServerTimeout(TimeSpan.FromSeconds(60))
 			.WithKeepAliveInterval(TimeSpan.FromSeconds(15))
 			.WithAutomaticReconnect()

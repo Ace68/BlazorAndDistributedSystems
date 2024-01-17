@@ -11,4 +11,9 @@ public sealed class BrewOrderService(IHttpService httpService,
 	{
 		await httpService.Post($"{appConfiguration.BrewOrderApiUri}v1/sagas/breworders", brewOrder);
 	}
+
+	public async Task<SignalRConnectionInfo> GetSignalRConnectionInfoAsync()
+	{
+		return await httpService.Post<SignalRConnectionInfo>($"{appConfiguration.SignalRUri}");
+	}
 }

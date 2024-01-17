@@ -31,7 +31,24 @@ public static class SagasEndpoint
 			options.AllowStatefulReconnects = true;
 		});
 
+		endpoints.MapPost("negotiate", HandleNegotiate);
+
 		return endpoints;
+	}
+
+	public static async Task<IResult> HandleNegotiate(IHubContextStore contextStore)
+	{
+		var negotiateResponse = await contextStore.BrewUpHubContext.NegotiateAsync(new()
+		{
+			UserId = "brewer",
+			EnableDetailedErrors = true
+		});
+
+		return Results.Ok(new Dictionary<string, string>()
+		{
+			{ "url", negotiateResponse.Url },
+			{ "accessToken", negotiateResponse.AccessToken }
+		});
 	}
 
 	public static async Task<IResult> HandleSendBrewOrder(
