@@ -2,9 +2,9 @@
 @page "/orders"
 
 <FluentToolbar id="toolbar-slotted-label">
-	<span slot="label">@SignalRStatus</span>
-	<FluentButton Appearance="Appearance.Accent" OnClick="@StartSignalRAsync">Call the Brewer</FluentButton>
-	<FluentButton Appearance="Appearance.Accent" OnClick="@StopSignalRAsync">Say Hello to the Brewer</FluentButton>
+	<span slot="label">@PubSubStatus</span>
+	<FluentButton Appearance="Appearance.Accent" OnClick="@StartPubSubAsync">Call the Brewer</FluentButton>
+	<FluentButton Appearance="Appearance.Accent" OnClick="@StopPubSubAsync">Say Hello to the Brewer</FluentButton>
 	<FluentButton Appearance="Appearance.Accent" OnClick="@OrderBeerAsync">Order a Beer</FluentButton>
 </FluentToolbar>
 <br/>

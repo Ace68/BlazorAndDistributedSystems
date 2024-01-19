@@ -15,6 +15,9 @@ public class InfrastructureModule : IModule
         var mongoDbSettings = builder.Configuration.GetSection("BrewUp:MongoDbSettings")
             .Get<MongoDbSettings>()!;
 
+        builder.Services.Configure<PubSubSettings>(
+            builder.Configuration.GetSection("BrewUp:PubSubSettings"));
+
         builder.Services.AddSagasInfrastructure(mongoDbSettings, rabbitMqSettings);
 
         return builder.Services;

@@ -15,7 +15,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 #region Configuration
 builder.Services.AddSingleton(_ => builder.Configuration.GetSection("BrewApp:AppConfiguration")
-	.Get<AppConfiguration>());
+    .Get<AppConfiguration>());
 builder.Services.AddApplicationService();
 #endregion
 

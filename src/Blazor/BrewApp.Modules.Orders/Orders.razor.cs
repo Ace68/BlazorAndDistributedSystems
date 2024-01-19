@@ -1,19 +1,19 @@
 ﻿using BrewApp.Modules.Orders.Extensions.Contracts;
 using BrewApp.Modules.Orders.Extensions.Services;
-using BrewApp.Shared.Configuration;
+using BrewApp.Shared.Messages;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.SignalR.Client;
+using System.Text.Json;
+using Websocket.Client;
 
 namespace BrewApp.Modules.Orders;
 
 public class OrdersBase : ComponentBase, IDisposable
 {
-	[Inject] private AppConfiguration AppConfiguration { get; set; } = default!;
 	[Inject] private IBrewOrderService BrewOrderService { get; set; } = default!;
 
-	protected string SignalRStatus { get; set; } = "Brewer Connecting ...";
+	protected string PubSubStatus { get; set; } = "Brewer Connecting ...";
 	protected string TellEveryoneThatClientIsConnected { get; set; } = string.Empty;
-	protected string TellEveryoneThatBrewOrderSagaWasStarted { get; set; } = string.Empty;
+	protected string TellEveryoneThatBrewOrderWasApproved { get; set; } = string.Empty;
 	protected string TellEveryoneThatBrewOrderWasProcessed { get; set; } = string.Empty;
 	protected string TellEveryoneThatBrewOrderSagaWasCompleted { get; set; } = string.Empty;
 
@@ -22,44 +22,33 @@ public class OrdersBase : ComponentBase, IDisposable
 	protected bool HideOrderProcessed { get; set; } = true;
 	protected bool HideSagaCompleted { get; set; } = true;
 
-	private HubConnection? _hubConnection;
+	private WebsocketClient _webSocketClient = default!;
 
-	protected async Task StartSignalRAsync()
+	protected async Task StartPubSubAsync()
 	{
-		var signalRConnectionInfo = await BrewOrderService.GetSignalRConnectionInfoAsync();
+		var pubSubConfiguration = await BrewOrderService.GetWebPubSubConnectionStringAsync();
 
-		_hubConnection = new HubConnectionBuilder()
-			.WithUrl(signalRConnectionInfo.Url, options =>
-			{
-				options.AccessTokenProvider = () => Task.FromResult(signalRConnectionInfo.AccessToken);
-			})
-			.WithServerTimeout(TimeSpan.FromSeconds(60))
-			.WithKeepAliveInterval(TimeSpan.FromSeconds(15))
-			.WithAutomaticReconnect()
-			.Build();
+		PubSubStatus = pubSubConfiguration.ClientUrl;
 
-		_hubConnection.On<string, string>("TellEveryoneThatClientIsConnected", UpdateTellEveryoneThatClientIsConnectedAsync);
+		try
+		{
+			_webSocketClient = new WebsocketClient(new Uri(pubSubConfiguration.ClientUrl));
 
-		_hubConnection.On<string, string>("TellEveryoneThatBrewOrderSagaWasStarted", UpdateTellEveryoneThatBrewOrderSagaWasStartedAsync);
-		_hubConnection.On<string, string>("TellEveryoneThatBrewOrderWasApproved", UpdateTellEveryoneThatBrewOrderWasProcessedAsync);
-		_hubConnection.On<string, string>("TellEveryoneThatBrewOrderWasProcessed", UpdateTellEveryoneThatBrewOrderWasProcessedAsync);
-		_hubConnection.On<string, string>("TellEveryoneThatBrewOrderSagaWasCompleted", UpdateTellEveryoneThatBrewOrderSagaWasCompletedAsync);
+			_webSocketClient.MessageReceived.Subscribe(async (message) => await HandlePubSubMessageAsync(message));
 
-		await _hubConnection.StartAsync();
+			await _webSocketClient.Start();
 
-		SignalRStatus = _hubConnection.State == HubConnectionState.Connected ? "Brewer is Connected" : "Brewer Is Not Connected";
+			PubSubStatus = _webSocketClient.IsStarted ? "Brewer is Connected" : "Brewer Is Not Connected";
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			throw;
+		}
 	}
 
-	protected async Task StopSignalRAsync()
+	protected async Task StopPubSubAsync()
 	{
-		if (_hubConnection != null)
-		{
-			await _hubConnection.StopAsync();
-			_hubConnection = null;
-
-			SignalRStatus = "Brewer Is Not Connected";
-		}
-
 		HideWaitingForNewOrder = true;
 		HideOrderAccepted = true;
 		HideOrderProcessed = true;
@@ -79,7 +68,33 @@ public class OrdersBase : ComponentBase, IDisposable
 		await BrewOrderService.SendBrewOrderAsync(brewOrder);
 	}
 
-	private async Task UpdateTellEveryoneThatClientIsConnectedAsync(string target, string message)
+	private async Task HandlePubSubMessageAsync(ResponseMessage message)
+	{
+		var pubSubMessage = JsonSerializer.Deserialize<PubSubMessage>(message.Text!);
+
+		switch (pubSubMessage!.MessageType)
+		{
+			case "TellEveryoneThatClientIsConnected":
+				await UpdateTellEveryoneThatClientIsConnectedAsync(pubSubMessage.Message).ConfigureAwait(false);
+				break;
+
+			case "TellEveryoneThatBrewOrderWasApproved":
+				await UpdateTellEveryoneThatBrewOrderWasApprovedAsync(pubSubMessage.Message).ConfigureAwait(false);
+				break;
+
+			case "TellEveryoneThatBrewOrderWasProcessed":
+				await UpdateTellEveryoneThatBrewOrderWasProcessedAsync(pubSubMessage.Message).ConfigureAwait(false);
+				break;
+
+			case "TellEveryoneThatBrewOrderSagaWasCompleted":
+				await UpdateTellEveryoneThatBrewOrderSagaWasCompletedAsync(pubSubMessage.Message).ConfigureAwait(false);
+				break;
+		}
+
+		await InvokeAsync(StateHasChanged);
+	}
+
+	private async Task UpdateTellEveryoneThatClientIsConnectedAsync(string message)
 	{
 		TellEveryoneThatClientIsConnected = message;
 
@@ -91,9 +106,9 @@ public class OrdersBase : ComponentBase, IDisposable
 		await InvokeAsync(StateHasChanged);
 	}
 
-	private async Task UpdateTellEveryoneThatBrewOrderSagaWasStartedAsync(string target, string message)
+	private async Task UpdateTellEveryoneThatBrewOrderWasApprovedAsync(string message)
 	{
-		TellEveryoneThatBrewOrderSagaWasStarted = message;
+		TellEveryoneThatBrewOrderWasApproved = message;
 
 		HideWaitingForNewOrder = false;
 		HideOrderAccepted = false;
@@ -103,19 +118,19 @@ public class OrdersBase : ComponentBase, IDisposable
 		await InvokeAsync(StateHasChanged);
 	}
 
-	private async Task UpdateTellEveryoneThatBrewOrderWasProcessedAsync(string target, string message)
+	private async Task UpdateTellEveryoneThatBrewOrderWasProcessedAsync(string message)
 	{
 		TellEveryoneThatBrewOrderWasProcessed = message;
 
 		HideWaitingForNewOrder = false;
 		HideOrderAccepted = false;
 		HideOrderProcessed = false;
-		HideSagaCompleted = false;
+		HideSagaCompleted = true;
 
 		await InvokeAsync(StateHasChanged);
 	}
 
-	private async Task UpdateTellEveryoneThatBrewOrderSagaWasCompletedAsync(string target, string message)
+	private async Task UpdateTellEveryoneThatBrewOrderSagaWasCompletedAsync(string message)
 	{
 		TellEveryoneThatBrewOrderSagaWasCompleted = message;
 
@@ -132,6 +147,7 @@ public class OrdersBase : ComponentBase, IDisposable
 	{
 		if (disposing)
 		{
+			_webSocketClient.Dispose();
 		}
 	}
 	public void Dispose()

@@ -5,7 +5,7 @@ namespace BrewApp.Modules.Orders.Extensions.Services;
 
 public interface IBrewOrderService
 {
-	Task SendBrewOrderAsync(BrewOrderJson brewOrder);
+    Task SendBrewOrderAsync(BrewOrderJson brewOrder);
 
-	Task<SignalRConnectionInfo> GetSignalRConnectionInfoAsync();
+    Task<PubSubConfiguration> GetWebPubSubConnectionStringAsync();
 }

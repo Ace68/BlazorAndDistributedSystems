@@ -1,4 +1,3 @@
-using BrewUpSagas.Middleware;
 using BrewUpSagas.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,8 +11,6 @@ app.UseCors("CorsPolicy");
 
 // Register endpoints
 app.MapEndpoints();
-
-app.UseResolveHubContext();
 
 // Configure the HTTP request pipeline.
 app.UseSwagger(s =>

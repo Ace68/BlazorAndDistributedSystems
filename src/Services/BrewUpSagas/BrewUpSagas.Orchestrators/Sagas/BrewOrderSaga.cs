@@ -47,7 +47,7 @@ public class BrewOrderSaga(IServiceBus serviceBus, ISagaRepository repository, I
 						command.ReceivedOn, command.BrewOrderBody);
 		await ServiceBus.SendAsync(receiveBrewOrder, CancellationToken.None);
 
-		await hubService.TellEveryoneThatBrewOrderSagaWasStarted("Brewer", "Your BrewOrder has been Received");
+		await hubService.TellEveryoneThatClientIsConnected("Brewer", "I'm waiting for a Beer Order");
 	}
 
 	public async Task HandleAsync(BrewOrderApproved @event)

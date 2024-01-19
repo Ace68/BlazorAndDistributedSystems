@@ -14,4 +14,8 @@
     <ProjectReference Include="..\BrewUpSagas.Shared\BrewUpSagas.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PubSub\" />
+  </ItemGroup>
+
 </Project>
