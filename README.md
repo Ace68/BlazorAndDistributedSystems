@@ -5,7 +5,7 @@ Example for 1nn0va-NetConf 2023 conference
 # Scenario
 When we have to deal with distributed systems we need to balance three forces 
 > - Communication (sync vs async)
-> - Persistence (strong vs eventually)
+> - Persistence (atomic vs eventually)
 > - Workflow (orchestrator vs choreography)
 
 
