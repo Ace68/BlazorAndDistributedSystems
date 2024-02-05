@@ -9,6 +9,16 @@
 *.user
 *.userosscache
 *.sln.docstates
+**/.idea/**/workspace.xml
+**/.idea/**/indexLayout.xml
+**/.idea/**/vcs.xml
+**/.idea/**/tasks.xml
+**/.idea/shelf/*
+**/.idea/dictionaries
+**/.idea/httpRequests/
+
+# Sensitive or high-churn files
+**/.idea/**/sonarlint/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
