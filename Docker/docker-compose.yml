@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+
+  brewupsales:
+     
+     container_name: "brewupsales"
+     
+     image: brewupsales
+      
+     ports:
+         - 5100:8080
+
+  brewupwarehouses:
+     
+     container_name: "brewupwarehouses"
+     
+     image: brewupwarehouses
+      
+     ports:
+         - 5200:8080
+
+  brewuplogistics:
+     
+     container_name: "brewuplogistics"
+     
+     image: brewuplogistics
+      
+     ports:
+         - 5300:8080
