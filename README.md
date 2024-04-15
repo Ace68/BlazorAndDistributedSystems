@@ -1,5 +1,5 @@
-# 1nn0va-NetConf2023
-Example for 1nn0va-NetConf 2023 conference
+# Blazor and Distributed Systems
+Example to show how to manage communications between fronted & backend in a Distributed System.
 
 
 # Scenario
