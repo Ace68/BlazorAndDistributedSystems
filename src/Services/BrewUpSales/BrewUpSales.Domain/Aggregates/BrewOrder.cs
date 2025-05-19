@@ -37,6 +37,20 @@ public class BrewOrder : AggregateRoot
 	private void Apply(BrewOrderReceived @event)
 	{
 		Id = @event.BrewOrderId;
+		
+		_brewOrderId = @event.BrewOrderId;
+		_brewOrderNumber = @event.BrewOrderNumber;
+		
+		_receivedOn = @event.ReceivedOn;
+		_brewOrderBody = @event.BrewOrderBody;
+		
+		// BrewOrderReceivedV1 @eventV1 = new(@event.BrewOrderId);
+		// Apply(@eventV1);
+	}
+	
+	private void Apply(BrewOrderReceivedV1 @event)
+	{
+		Id = @event.BrewOrderId;
 
 		_brewOrderId = @event.BrewOrderId;
 		_brewOrderNumber = @event.BrewOrderNumber;
@@ -44,7 +58,7 @@ public class BrewOrder : AggregateRoot
 		_receivedOn = @event.ReceivedOn;
 		_brewOrderBody = @event.BrewOrderBody;
 	}
-
+	
 	internal void CloseBrewOrder(Guid correlationId)
 	{
 		RaiseEvent(new BrewOrderClosed(_brewOrderId, correlationId));

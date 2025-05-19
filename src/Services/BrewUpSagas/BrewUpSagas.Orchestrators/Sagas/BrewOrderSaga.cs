@@ -80,7 +80,7 @@ public class BrewOrderSaga(IServiceBus serviceBus, ISagaRepository repository, I
 	{
 		var correlationId =
 			new Guid(@event.UserProperties.FirstOrDefault(u => u.Key.Equals("CorrelationId")).Value.ToString()!);
-
+		
 		SagaBroker.Publish("Brewer", "Your BrewOrder has been Processed", "TellEveryoneThatBrewOrderWasProcessed");
 
 		var sagaState = await Repository.GetByIdAsync<BrewOrderSagaState>(correlationId);

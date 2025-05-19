@@ -19,7 +19,7 @@ public static class ReceiverEndpoints
 		return endpoints;
 	}
 
-	public static async Task<IResult> HandleGetBrewOrders(IReceiverFacade receiverFacade,
+	private static async Task<IResult> HandleGetBrewOrders(IReceiverFacade receiverFacade,
 		CancellationToken cancellationToken)
 	{
 		var brewOrdersResult = await receiverFacade.GetBrewOrdersAsync(cancellationToken);

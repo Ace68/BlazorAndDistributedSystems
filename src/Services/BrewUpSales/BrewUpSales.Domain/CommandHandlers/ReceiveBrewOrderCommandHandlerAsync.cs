@@ -5,12 +5,9 @@ using Muflone.Persistence;
 
 namespace BrewUpSales.Domain.CommandHandlers;
 
-public sealed class ReceiveBrewOrderCommandHandlerAsync : CommandHandlerBaseAsync<ReceiveBrewOrder>
+public sealed class ReceiveBrewOrderCommandHandlerAsync(IRepository repository, ILoggerFactory loggerFactory)
+    : CommandHandlerBaseAsync<ReceiveBrewOrder>(repository, loggerFactory)
 {
-    public ReceiveBrewOrderCommandHandlerAsync(IRepository repository, ILoggerFactory loggerFactory) : base(repository, loggerFactory)
-    {
-    }
-
     public override async Task ProcessCommand(ReceiveBrewOrder command, CancellationToken cancellationToken = default)
     {
         var aggregate = BrewOrder.ReceiveBrewOrder(command.BrewOrderId, command.MessageId, command.BrewOrderNumber,
